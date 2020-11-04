@@ -34,13 +34,13 @@ export class SceneController implements ISceneController {
 
       this.isInitialised = true;
       this.setCanvasSize();
-      this.domInteractor.addWindowResizeListener(this.setCanvasSize);
+      this.domInteractor.addWindowResizeListener(this.onWindowResize);
     } else {
       this.logger.log('No canvas tag found');
     }
   }
 
-  private setCanvasSize = () => {
+  private setCanvasSize() {
     if (!this.canvasElement) {
       this.logger.log('Canvas not found, cannot resize!');
       return;
@@ -51,6 +51,11 @@ export class SceneController implements ISceneController {
 
     this.canvasElement.width = width;
     this.canvasElement.height = height;
+  }
+
+  private onWindowResize = () => {
+    this.setCanvasSize();
+    this.runScene();
   };
 
   public runScene() {
@@ -60,6 +65,6 @@ export class SceneController implements ISceneController {
     }
 
     this.scene!.init(this.canvasElement!, this.canvasContext!);
-    this.scene!.addInteractions();
+    this.scene!.addObjects();
   }
 }

@@ -4,6 +4,7 @@ const SERVICE_IDENTIFIER = {
   DOMINTERACTOR: Symbol.for('DomInteractor'),
   SIZER: Symbol.for('Sizer'),
   IMAGE_LOADER: Symbol.for('ImageLoader'),
+  DRAG_AND_DROP: Symbol.for('DragAndDrop'),
   LOGGER: Symbol.for('Logger'),
 };
 

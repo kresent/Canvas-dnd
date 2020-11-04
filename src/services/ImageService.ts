@@ -35,6 +35,8 @@ export class ImageService implements IImageLoader {
             resolve(loadedImages);
           }
         };
+
+        // TODO: add timer for promise rejection
       });
     });
   }

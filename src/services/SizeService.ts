@@ -13,4 +13,10 @@ export class SizeService implements ISizer {
 
     return {width: targetWidth, height: targetWidth * CANVAS_HEIGHT_ASPECT_RATIO};
   }
+
+  isInCanvasBounds(posX: number, posY: number, objectSize: number, canvas: HTMLCanvasElement) {
+    return (
+      posX > 0 && posX + objectSize < canvas.width && posY > 0 && posY + objectSize < canvas.height
+    );
+  }
 }

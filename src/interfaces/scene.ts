@@ -6,5 +6,5 @@ export interface ISceneController {
 
 export interface IScene {
   init: (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => void;
-  addInteractions: () => void;
+  addObjects: () => void;
 }

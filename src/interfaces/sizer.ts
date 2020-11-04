@@ -5,4 +5,10 @@ export interface ISizes {
 
 export default interface ISizer {
   calculateCanvasSize: (sizes: ISizes) => ISizes;
+  isInCanvasBounds(
+    posX: number,
+    posY: number,
+    objectSize: number,
+    canvas: HTMLCanvasElement,
+  ): boolean;
 }
