@@ -5,7 +5,8 @@ import {Container} from 'inversify';
 import {IScene, ISceneController} from './interfaces/scene';
 import ILogger from './interfaces/logger';
 
-import {OverlayScene, SceneController} from './entities';
+import {OverlayScene} from './entities/OverlayScene';
+import {SceneController} from './entities/SceneController';
 import {LoggerService} from './services/LoggerService';
 import {DomInteractionService} from './services/DomInteractionService';
 
