@@ -24,7 +24,7 @@ export class ImageScene implements IScene {
 
   private canvasElement?: HTMLCanvasElement;
   private canvasContext?: CanvasRenderingContext2D;
-  private overlayImages: IOverlay[] = [];
+  private overlays: IOverlay[] = [];
   private draggedOverlay: IOverlay | null = null;
 
   public init(canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) {
@@ -43,7 +43,7 @@ export class ImageScene implements IScene {
 
   private async renderOverlays() {
     const images = await this.loadImages();
-    this.overlayImages = this.getOverlays(images);
+    this.overlays = this.getOverlays(images);
 
     this.drawOverlays();
   }
@@ -74,7 +74,7 @@ export class ImageScene implements IScene {
     const ch = this.canvasElement!.height;
     this.canvasContext!.clearRect(0, 0, cw, ch);
 
-    this.overlayImages.forEach((overlay) => {
+    this.overlays.forEach((overlay) => {
       this.canvasContext!.drawImage(
         overlay.image,
         overlay.pX,
@@ -102,7 +102,7 @@ export class ImageScene implements IScene {
       return;
     }
 
-    this.dragAndDropService.onMouseDown(this.canvasElement, this.overlayImages, (image) => {
+    this.dragAndDropService.onMouseDown(this.canvasElement, this.overlays, (image) => {
       image.isActive = true;
       this.draggedOverlay = image as IOverlay;
     });
@@ -116,8 +116,8 @@ export class ImageScene implements IScene {
 
     this.dragAndDropService.onMouseUp(this.canvasElement, () => {
       if (this.draggedOverlay) {
-        this.overlayImages.forEach((image) => {
-          image.isActive = false;
+        this.overlays.forEach((overlay) => {
+          overlay.isActive = false;
         });
         this.eventStoreService.push(
           `moved overlay with id ${this.draggedOverlay.id} to position x:${this.draggedOverlay.pX}, y: ${this.draggedOverlay.pY}`,
@@ -138,8 +138,8 @@ export class ImageScene implements IScene {
 
     this.dragAndDropService.onMouseOut(this.canvasElement, () => {
       if (this.draggedOverlay) {
-        this.overlayImages.forEach((image) => {
-          image.isActive = false;
+        this.overlays.forEach((overlay) => {
+          overlay.isActive = false;
         });
         this.eventStoreService.push(
           `moved overlay with id ${this.draggedOverlay.id} to position x:${this.draggedOverlay.pX}, y: ${this.draggedOverlay.pY}`,
@@ -159,24 +159,29 @@ export class ImageScene implements IScene {
     }
 
     this.dragAndDropService.onMouseMove(this.canvasElement, (dX, dY) => {
-      if (!this.draggedOverlay) return;
-
-      // prevent overlay going out of canvas bounds
-      const newPositionX = this.draggedOverlay.pX + dX;
-      const newPositionY = this.draggedOverlay.pY + dY;
-      const inInBounds = this.sizeService.isInCanvasBounds(
-        newPositionX,
-        newPositionY,
-        this.draggedOverlay.imageSize,
-        this.canvasElement!,
-      );
-
-      if (inInBounds) {
-        this.draggedOverlay.pX += dX;
-        this.draggedOverlay.pY += dY;
-
-        this.drawOverlays();
-      }
+      // Here we can customize desired mousemove behaviour
+      this.moveOverlay(dX, dY);
     });
+  }
+
+  private moveOverlay(dX: number, dY: number) {
+    if (!this.draggedOverlay) return;
+
+    // prevent overlay going out of canvas bounds
+    const newPositionX = this.draggedOverlay.pX + dX;
+    const newPositionY = this.draggedOverlay.pY + dY;
+    const inInBounds = this.sizeService.isInCanvasBounds(
+      newPositionX,
+      newPositionY,
+      this.draggedOverlay.imageSize,
+      this.canvasElement!,
+    );
+
+    if (inInBounds) {
+      this.draggedOverlay.pX += dX;
+      this.draggedOverlay.pY += dY;
+
+      this.drawOverlays();
+    }
   }
 }
