@@ -1,7 +1,12 @@
 const SERVICE_IDENTIFIER = {
-  SCENE_INITIALIZER: Symbol.for('SceneInitializer'),
+  SCENE_CONTROLLER: Symbol.for('SceneController'),
   IMAGE_SCENE: Symbol.for('ImageScene'),
+  DOMINTERACTOR: Symbol.for('DomInteractor'),
+  SIZER: Symbol.for('Sizer'),
   LOGGER: Symbol.for('Logger'),
 };
+
+// Assume all scenes have 16:9 aspect ratio. If needs to change, create a separate config service
+export const CANVAS_HEIGHT_ASPECT_RATIO = 0.5625;
 
 export default SERVICE_IDENTIFIER;

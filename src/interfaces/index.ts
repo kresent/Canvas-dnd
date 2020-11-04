@@ -1,2 +1,2 @@
-export {IScene, ISceneInitializer} from './scene';
-export {default as ILoggerService} from './loggerService';
+export {IScene, ISceneController} from './scene';
+export {default as ILogger} from './logger';

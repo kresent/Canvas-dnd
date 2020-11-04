@@ -1,1 +1,2 @@
-export {LoggerService} from './loggerService';
+export {LoggerService} from './LoggerService';
+export {DomInteractionService} from './DomInteractionService';

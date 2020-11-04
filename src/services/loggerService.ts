@@ -1,9 +1,9 @@
 import {injectable} from 'inversify';
 
-import {ILoggerService} from '../interfaces';
+import {ILogger} from '../interfaces';
 
 @injectable()
-export class LoggerService implements ILoggerService {
+export class LoggerService implements ILogger {
   log(error: string) {
     console.log(`--->  ${error}`);
   }

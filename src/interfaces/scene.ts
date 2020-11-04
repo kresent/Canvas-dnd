@@ -1,9 +1,10 @@
-export interface ISceneInitializer {
+export interface ISceneController {
   setScene: (scene: IScene) => void;
   init: (elementId: string) => void;
-  startScene: () => void;
+  runScene: () => void;
 }
 
 export interface IScene {
-  start: (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => void;
+  init: (canvas: HTMLCanvasElement, context: CanvasRenderingContext2D) => void;
+  addInteractions: () => void;
 }
