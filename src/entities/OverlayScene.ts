@@ -87,6 +87,7 @@ export class OverlayScene implements IScene {
       if (overlay.isActive) {
         // TODO: move color values to theme config
         this.canvasContext!.strokeStyle = '#669900';
+        this.canvasContext!.lineWidth = 2;
         this.canvasContext!.strokeRect(
           overlay.pX,
           overlay.pY,
