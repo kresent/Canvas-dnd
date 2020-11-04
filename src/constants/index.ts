@@ -5,6 +5,7 @@ const SERVICE_IDENTIFIER = {
   SIZER: Symbol.for('Sizer'),
   IMAGE_LOADER: Symbol.for('ImageLoader'),
   DRAG_AND_DROP: Symbol.for('DragAndDrop'),
+  EVENT_STORE: Symbol.for('EventStore'),
   LOGGER: Symbol.for('Logger'),
 };
 

@@ -5,6 +5,7 @@ import SERVICE_IDENTIFIER, {IMAGE_OVERLAY_SIZE} from '../constants';
 import IImageLoader from '../interfaces/imageLoader';
 import IDragAndDrop, {IDraggableObject} from '../interfaces/dragAndDrop';
 import ISizer from '../interfaces/sizer';
+import IEventStore from '../interfaces/eventStore';
 
 interface IOverlay extends IDraggableObject {
   image: HTMLImageElement;
@@ -17,6 +18,7 @@ export class ImageScene implements IScene {
     @inject(SERVICE_IDENTIFIER.LOGGER) public logger: ILogger,
     @inject(SERVICE_IDENTIFIER.IMAGE_LOADER) public imageService: IImageLoader,
     @inject(SERVICE_IDENTIFIER.SIZER) public sizeService: ISizer,
+    @inject(SERVICE_IDENTIFIER.EVENT_STORE) public eventStoreService: IEventStore,
     @inject(SERVICE_IDENTIFIER.DRAG_AND_DROP) public dragAndDropService: IDragAndDrop,
   ) {}
 
@@ -117,6 +119,9 @@ export class ImageScene implements IScene {
         this.overlayImages.forEach((image) => {
           image.isActive = false;
         });
+        this.eventStoreService.push(
+          `moved overlay with id ${this.draggedOverlay.id} to position x:${this.draggedOverlay.pX}, y: ${this.draggedOverlay.pY}`,
+        );
 
         this.draggedOverlay = null;
 
@@ -136,6 +141,9 @@ export class ImageScene implements IScene {
         this.overlayImages.forEach((image) => {
           image.isActive = false;
         });
+        this.eventStoreService.push(
+          `moved overlay with id ${this.draggedOverlay.id} to position x:${this.draggedOverlay.pX}, y: ${this.draggedOverlay.pY}`,
+        );
 
         this.draggedOverlay = null;
 
