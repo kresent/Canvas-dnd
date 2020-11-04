@@ -2,6 +2,9 @@
   "name": "canvas-pics",
   "version": "1.0.0",
   "description": "Canvas with picture dnd",
+  "browserslist": [
+    "since 2017-06"
+  ],
   "main": "index.js",
   "scripts": {
     "dev": "tsc --noEmit && parcel src/index.html",
