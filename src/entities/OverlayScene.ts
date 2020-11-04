@@ -1,6 +1,7 @@
 import {inject, injectable} from 'inversify';
 
-import {ILogger, IScene} from '../interfaces';
+import {IScene} from '../interfaces/scene';
+import ILogger from '../interfaces/logger';
 import SERVICE_IDENTIFIER, {IMAGE_OVERLAY_SIZE} from '../constants';
 import IImageLoader from '../interfaces/imageLoader';
 import IDragAndDrop, {IDraggableObject} from '../interfaces/dragAndDrop';
@@ -13,7 +14,7 @@ interface IOverlay extends IDraggableObject {
 }
 
 @injectable()
-export class ImageScene implements IScene {
+export class OverlayScene implements IScene {
   public constructor(
     @inject(SERVICE_IDENTIFIER.LOGGER) public logger: ILogger,
     @inject(SERVICE_IDENTIFIER.IMAGE_LOADER) public imageService: IImageLoader,
@@ -159,7 +160,7 @@ export class ImageScene implements IScene {
     }
 
     this.dragAndDropService.onMouseMove(this.canvasElement, (dX, dY) => {
-      // Here we can customize desired mousemove behaviour
+      // Here we can pick desired mousemove behaviour
       this.moveOverlay(dX, dY);
     });
   }
@@ -181,7 +182,9 @@ export class ImageScene implements IScene {
       this.draggedOverlay.pX += dX;
       this.draggedOverlay.pY += dY;
 
-      this.drawOverlays();
+      window.requestAnimationFrame(() => {
+        this.drawOverlays();
+      });
     }
   }
 }

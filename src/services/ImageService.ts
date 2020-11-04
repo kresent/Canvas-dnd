@@ -27,7 +27,7 @@ export class ImageService implements IImageLoader {
     let loadedImages = 0;
 
     return new Promise((resolve, reject) => {
-      images.forEach((image, index) => {
+      images.forEach((image) => {
         image.onload = () => {
           ++loadedImages;
 

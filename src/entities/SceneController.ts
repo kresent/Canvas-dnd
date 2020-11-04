@@ -1,7 +1,8 @@
 import {inject, injectable} from 'inversify';
 
-import {ILogger, IScene, ISceneController} from '../interfaces';
-import SERVICE_IDENTIFIER, {CANVAS_HEIGHT_ASPECT_RATIO} from '../constants';
+import {IScene, ISceneController} from '../interfaces/scene';
+import ILogger from '../interfaces/logger';
+import SERVICE_IDENTIFIER from '../constants';
 import IDomInteractor from '../interfaces/domInteractor';
 import ISizer from '../interfaces/sizer';
 
@@ -49,8 +50,10 @@ export class SceneController implements ISceneController {
 
     const {width, height} = this.sizeService.calculateCanvasSize(windowSize);
 
-    this.canvasElement.width = width;
-    this.canvasElement.height = height;
+    window.requestAnimationFrame(() => {
+      this.canvasElement!.width = width;
+      this.canvasElement!.height = height;
+    });
   }
 
   private onWindowResize = () => {
@@ -64,7 +67,9 @@ export class SceneController implements ISceneController {
       return;
     }
 
-    this.scene!.init(this.canvasElement!, this.canvasContext!);
-    this.scene!.addObjects();
+    window.requestAnimationFrame(() => {
+      this.scene!.init(this.canvasElement!, this.canvasContext!);
+      this.scene!.addObjects();
+    });
   }
 }

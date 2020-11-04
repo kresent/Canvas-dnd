@@ -2,10 +2,12 @@ import 'reflect-metadata';
 
 import {Container} from 'inversify';
 
-import {ILogger, IScene, ISceneController} from './interfaces';
+import {IScene, ISceneController} from './interfaces/scene';
+import ILogger from './interfaces/logger';
 
-import {ImageScene, SceneController} from './entities';
-import {DomInteractionService, LoggerService} from './services';
+import {OverlayScene, SceneController} from './entities';
+import {LoggerService} from './services/LoggerService';
+import {DomInteractionService} from './services/DomInteractionService';
 
 import SERVICE_IDENTIFIER from './constants/';
 import IDomInteractor from './interfaces/domInteractor';
@@ -21,7 +23,7 @@ import {EventStoreService} from './services/EventStoreService';
 const container = new Container();
 
 container.bind<ISceneController>(SERVICE_IDENTIFIER.SCENE_CONTROLLER).to(SceneController);
-container.bind<IScene>(SERVICE_IDENTIFIER.IMAGE_SCENE).to(ImageScene);
+container.bind<IScene>(SERVICE_IDENTIFIER.OVERLAY_SCENE).to(OverlayScene);
 container.bind<IDomInteractor>(SERVICE_IDENTIFIER.DOMINTERACTOR).to(DomInteractionService);
 container.bind<ISizer>(SERVICE_IDENTIFIER.SIZER).to(SizeService);
 container.bind<IImageLoader>(SERVICE_IDENTIFIER.IMAGE_LOADER).to(ImageService);

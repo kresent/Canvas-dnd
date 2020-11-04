@@ -1,6 +1,6 @@
 const SERVICE_IDENTIFIER = {
   SCENE_CONTROLLER: Symbol.for('SceneController'),
-  IMAGE_SCENE: Symbol.for('ImageScene'),
+  OVERLAY_SCENE: Symbol.for('OverlayScene'),
   DOMINTERACTOR: Symbol.for('DomInteractor'),
   SIZER: Symbol.for('Sizer'),
   IMAGE_LOADER: Symbol.for('ImageLoader'),
